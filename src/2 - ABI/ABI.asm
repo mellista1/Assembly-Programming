@@ -124,13 +124,15 @@ alternate_sum_8:
 ;registros: destination[rdi], x1[esi], f1[xmm0]
 product_2_f:
 
-    cvtsi2ss xmm1, esi         ; convierto x1 a float
-    mulss xmm0, xmm1           
-    cvttss2si eax, xmm0
-    dec eax         
+    CVTSI2SD xmm1, esi         
+    CVTSS2SD xmm0, xmm0
+    mulsd xmm0, xmm1           
+    CVTSD2SI eax, xmm0       
+    ;dec eax
     mov [rdi], eax             
     ret
 
+  ;CONSULTAAAAAARRRRRRRRRs
 
 
 ;extern void product_9_f(double * destination
