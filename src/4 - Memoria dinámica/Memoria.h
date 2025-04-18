@@ -51,4 +51,5 @@ void strPrint(char *a, FILE *pFile);
 // Retorna la cantidad de caracteres distintos de cero del \emph{string} pasado por parámetro.
 uint32_t strLen(char *a);
 
+
 #endif
