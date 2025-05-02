@@ -28,7 +28,7 @@ EJERCICIO_1A_HECHO: db TRUE ; Cambiar por `TRUE` para correr los tests.
 ; Funciones a implementar:
 ;   - indice_a_inventario
 global EJERCICIO_1B_HECHO
-EJERCICIO_1B_HECHO: db FALSE ; Cambiar por `TRUE` para correr los tests.
+EJERCICIO_1B_HECHO: db TRUE; Cambiar por `TRUE` para correr los tests.
 
 ;; La funcion debe verificar si una vista del inventario está correctamente 
 ;; ordenada de acuerdo a un criterio (comparador)
@@ -93,6 +93,7 @@ loop_sobre_indice:
     mul cx
     mov cx, ax
     add rsi, rcx
+    
     ;ahora debo pasarle el puntero a item
     xor r8, r8
     mov r8, [rsi]
@@ -152,5 +153,57 @@ ret
 ;;   ítems**
 
 global indice_a_inventario
-indice_a_inventario: ;registros inventario[rdi], indice[rsi], tamanio[edx]
+indice_a_inventario: ;rdi = item_t** inventario,rsi = uint16_t* indice, dx = uint16_t tamanio
+push rbp
+mov rbp, rsp
+push r12
+push r13
+push r14
+push r15
+
+mov r12, rdi
+mov r13, rsi
+xor r14, r14
+mov r14w, dx
+
+xor rax, rax
+mov ax, 8
+mul dx
+mov rdi, rax
+call malloc
+
+mov r15, rax
+xor r9, r9
+xor r8, r8
+mov r8, r15
+loop_creando_vista:
+    cmp r9w, r14w
+    je fin_loop_creando_vista 
+    
+    mov rdi, r12
+    
+    ;obtengo el indice en cx
+    xor rcx, rcx
+    mov cx, WORD [r13 + r9*2] 
+    mov ax, 8
+    mul cx
+    xor rcx, rcx
+    mov cx, ax
+    add rdi, rcx
+
+    mov rcx, [rdi]
+    mov [r8], rcx 
+
+    inc r9w
+    add r8, 8
+    jmp loop_creando_vista
+
+
+fin_loop_creando_vista:
+mov rax, r15
+pop r15
+pop r14
+pop r13
+pop r12
+pop rbp
 ret
