@@ -1,0 +1,33 @@
+Nombre del producto, Precio, Moneda, Stock
+Fractal Design Core 500, 1110, ARG, 1892
+Fractal Design Define Mini C, 3684, USD, 966
+Corsair Vengeance LPX 8GB, 2438, USD, 1641
+Asrock B450 Steel Legend, 716, ARG, 115
+Western Digital Green 2TB, 3525, ARG, 299
+MSI GTX 1080 Ti, 562, USD, 1279
+NZXT H710, 2372, USD, 683
+Corsair RM850x, 1220, USD, 236
+AMD Radeon RX 5600 XT, 498, USD, 1295
+Asus Prime B450M-A, 653, USD, 1229
+MSI MPG Z390 Gaming Edge AC, 1419, USD, 2010
+Thermalright Le Grand Macho RT, 1184, USD, 1963
+Asus TUF Gaming X570-Plus, 1055, ARG, 1763
+Sapphire RX Vega 64, 1155, ARG, 1787
+Lian Li PC-TU150, 2718, ARG, 188
+Nvidia RTX 3090, 1770, USD, 326
+Sapphire RX 590 Nitro+, 7, USD, 524
+PowerColor RX 580 Red Devil, 2231, USD, 706
+Kingston HyperX Fury 16GB, 133, ARG, 1572
+Intel Core i7 9700K, 2203, ARG, 2040
+Nvidia RTX 2080 Ti, 561, USD, 733
+EVGA SuperNOVA 750 G3, 1598, ARG, 488
+Sapphire RX 5700 XT Nitro+, 3294, ARG, 1512
+MSI GTX 1050, 3789, USD, 909
+Western Digital Blue 1TB, 247, ARG, 580
+Asus ROG Strix Z390-E, 3174, USD, 1370
+MSI RTX 2080 Super, 3986, USD, 1454
+Asrock B365M Pro4, 3099, USD, 611
+PowerColor RX 560 Red Dragon, 3107, ARG, 1530
+Asrock TRX40 Taichi, 1591, USD, 1951
+AMD Ryzen 5 3600, 3148, USD, 1280
+Crucial P5 1TB, 726, USD, 1946
