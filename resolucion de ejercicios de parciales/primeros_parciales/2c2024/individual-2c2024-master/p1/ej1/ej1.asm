@@ -54,16 +54,75 @@ EJERCICIO_1B_HECHO: db FALSE ; Cambiar por `TRUE` para correr los tests.
 ;;   de verificar que el orden sea estable.
 
 global es_indice_ordenado
-es_indice_ordenado: ;registros: item_t** [rdi], indice*[rsi], tamanio[dx], comparador*[rcx]
+es_indice_ordenado: ;item_t** inventario = [rdi], uint16_t* indice = rsi, uint16_t tamanio = dx, comparador_t comparador = rcx
 push rbp
 mov rbp, rsp 
+push rbx
+push r12
+push r13
+push r14
+push r15
+;preservo los parámetros
+mov r12, rdi
+mov r13, rsi
+xor r14, r14
+mov r14w, dx
+mov r15, rcx
 
+xor rbx, rbx
+mov rbx, TRUE
+xor r9, r9 ;uso r9 para recorrer indice
+loop_sobre_indice: 
+    cmp r14w, 0
+    je fin_loop_sobre_indice
+    inc r9w ;pues el último elemento a comparar es el anteultimo
+    cmp r9w, r14w
+    je fin_loop_sobre_indice
+    dec r9w
+    
+    mov rdi, r12
+    mov rsi, r12
+    xor rcx, rcx
+    mov cx, WORD [r13 + r9*2] ;en cx tengo el indice
+    mov ax, 8
+    mul cx
+    mov cx, ax
+    add rdi, rcx 
+    mov cx, WORD [r13 + r9*2 + 2]
+    mov ax, 8
+    mul cx
+    mov cx, ax
+    add rsi, rcx
+    ;ahora debo pasarle el puntero a item
+    xor r8, r8
+    mov r8, [rsi]
+    mov rsi, r8
+    xor r8, r8
+    mov r8, [rdi]
+    mov rdi, r8
+
+    push r9
+    call r15
+    pop r9
+    
+    cmp rax, 0x0
+    je la_vista_no_esta_ordenada
+
+    inc r9
+    jmp loop_sobre_indice
+
+la_vista_no_esta_ordenada:
+    mov rbx, FALSE
+
+fin_loop_sobre_indice:
+mov rax, rbx
+pop r15
+pop r14
+pop r13
+pop r12
+pop rbx
+pop rbp
 ret
-
-
-
-
-
 
 
 
