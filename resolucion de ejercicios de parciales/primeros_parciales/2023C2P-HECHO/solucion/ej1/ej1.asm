@@ -35,7 +35,7 @@ global pagos_rechazados_usuario_asm
 extern malloc
 extern free
 extern strcmp
-
+; COMENTARIO IMPORTANTE: LOS TEST DE ESTE EJERCICIO NO SON BUENOS. TUVE QUE CORREGIR ERRORES GROSOS Y, A PESAR DE ELLOS, LOS TEST SE APROBABAN IGUALEMENTE. POR ELLO INTENTE CORREGIR TODO LO MEJOR QUE PUDE PERO PUEDEN EXISTIR ERRORES.
 
 ;########### SECCION DE TEXTO (PROGRAMA)
 
@@ -213,18 +213,22 @@ ret
 
 
 ;pago_t** pagos_aprobados_usuario_asm(list_t* pList, char* usuario, uint8_t cantidad_pagos_aprobados) 
-pagos_aprobados_usuario_asm:
+pagos_aprobados_usuario_asm: ;ERRORES CORREGIDOS Y EXPLICADOS EN PAGOS RECHAZADOS
 push rbp
 mov rbp, rsp
+push rbx
 push r12
 push r13
 push r14
 push r15
+sub rsp, 8
+
 
 ;preservo los parámetros
-mov r12, rdi
+mov r12, [rdi + LISTA_OFFSET_FIRST]
 mov r13, rsi
-mov r14b, dl
+xor rbx, rbx
+mov bl, dl
 
 xor rax, rax
 xor rcx, rcx
@@ -239,7 +243,8 @@ call malloc
 
 mov r15, rax ;preservo el puntero
 
-cmp r14b, 0x0 ;chequeo si el array debe ser vacío
+
+cmp bl , 0x0 ;chequeo si el array debe ser vacío
 je fin3
 
 
@@ -247,8 +252,8 @@ mov r14, rax ;uso r14 como indice para recorrer el array
 
 
 loop3:
-cmp r12, 0 ;uso r12 como indice para recorrer la pList
-je fin3
+cmp bl, 0x0
+je fin4
 
 
 ;chequeo mismo usuario
@@ -271,22 +276,26 @@ cmp dil, 1
 jne next3
 
 ;copio el puntero al pago_t hallado
-mov r14, [r12 + LIST_ELEM_OFFSET_DATA]
-
+mov r8, [r12 + LIST_ELEM_OFFSET_DATA]
+mov [r14], r8
+add r14, 8
+dec bl
 
 next3:
 mov rdx, [r12 + LIST_ELEM_OFFSET_NEXT]
 mov r12, rdx
-add r14, 8
+;add r14, 8
 jmp loop3
 
 
 fin3:
 mov rax, r15
+add rsp, 8
 pop r15
 pop r14
 pop r13
 pop r12
+pop rbx
 pop rbp
 ret
 
@@ -300,15 +309,19 @@ ret
 pagos_rechazados_usuario_asm:
 push rbp
 mov rbp, rsp
+push rbx
 push r12
 push r13
 push r14
 push r15
+sub rsp, 8
 
 ;preservo los parámetros
-mov r12, rdi
+;mov r12, rdi TUVE QUE CORREGIR ESTA LINEA PORQUE USABA R12 PARA RECORRER LA LISTA ENLAZADA. LO CORRECTO ES HACER LO SIGUIENTE EN LA LINEA 321.
+mov r12, [rdi + LISTA_OFFSET_FIRST]
 mov r13, rsi
-mov r14b, dl
+xor rbx, rbx
+mov bl, dl
 
 xor rax, rax
 xor rcx, rcx
@@ -322,14 +335,15 @@ call malloc
 
 mov r15, rax ;preservo el puntero
 
-cmp r14b, 0x0 ;chequeo si el array debe ser vacío
+cmp bl , 0x0 ;chequeo si el array debe ser vacío
 je fin4
 
 
 mov r14, rax ;uso r14 como indice para recorrer el array
 
 loop4:
-cmp r12, 0 ;uso r12 como indice para recorrer la pList
+;cmp r12, 0x0 ;EN VEZ DE RECORRER TODOS LOS PAGOS HASTA EL FINAL, FRENO EL LOOP CUANDO YA HAYA ENCONTRADO TODOS LOS PAGOS
+cmp bl, 0x0
 je fin4
 
 
@@ -353,22 +367,29 @@ cmp dil, 0
 jne next4
 
 ;copio el puntero al pago_t hallado
-mov r14, [r12 + LIST_ELEM_OFFSET_DATA]
+;mov r14, [r12 + LIST_ELEM_OFFSET_DATA] ESTO ESTABA MAL. PUES CON R14 ESTABA RECORRIENDO EL ARRAY DE PUNTEROS PAGO_T* . 
 
+mov r8, [r12 + LIST_ELEM_OFFSET_DATA]
+mov [r14], r8
+add r14, 8
+dec bl
 
 next4:
 mov rdx, [r12 + LIST_ELEM_OFFSET_NEXT]
 mov r12, rdx
-add r14, 8
+;add r14, 8 ESTO ESTABA MAL. SOLO QUIERO AVANZAR EN EL ARRAY CUANDO HAYA GUARDADO UN PAGO ENCONTRADO. 
+
 jmp loop4
 
 
 fin4:
 mov rax, r15
+add rsp, 8
 pop r15
 pop r14
 pop r13
 pop r12
+pop rbx
 pop rbp
 ret
 
