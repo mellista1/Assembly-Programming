@@ -10,9 +10,11 @@ def parse_defs(defs, lines):
         line = line.rstrip()
         if "asmdef_offset:" in line:
             asmdef = line.split('asmdef_offset:')[1]
+            asmdef = asmdef.split(' ')[0]
             yield i, asmdef
         if "asmdef_size:" in line:
             asmdef = line.split('asmdef_size:')[1]
+            asmdef = asmdef.split(' ')[0]
             yield i, asmdef
 
 class StructFieldVisitor(pycparser.c_ast.NodeVisitor):
@@ -33,6 +35,27 @@ class StructFieldVisitor(pycparser.c_ast.NodeVisitor):
 def sacar_comments(text):
     text = subprocess.check_output("gcc -fpreprocessed -dD -E -".split(), input=text.encode())
     return text.decode()
+
+def aplicar_defines(text):
+    # ojo que esto solamente soporta defines muy simples!
+    # (no garantiza que se apliquen defines sucesivos)
+    out = ""
+    defs = {}
+    for line in text.split('\n'):
+        parts = line.split(' ')
+        if parts[0] == "#define":
+            _, name, expr = parts
+            defs[name] = expr
+            line = ""
+        else:
+            # TODO: tokenizar mejor esto porque podria haber reemplazos de
+            #       substrings de algo que esta en un define.
+            #       de todas maneras los defines van en caps y generalmente se
+            #       prefijan de manera de que esto no pase.
+            for n in defs:
+                line = line.replace(n, defs[n])
+        out += line + "\n"
+    return out
 
 def main(c_source, *args):
     defs = {}
@@ -57,7 +80,8 @@ def main(c_source, *args):
     text = text.replace("int16_t", "int")
     text = text.replace("int8_t",  "int")
     text = text.replace("bool",  "int")
-    
+    text = aplicar_defines(text)
+
     ast = parser.parse(text)
 
     # ast.show(showcoord=True)

@@ -232,7 +232,7 @@ uint32_t restar_c(uint32_t a,uint32_t b){
 
 # Un poco de GDB
 
-Si no lo conocían, les presento a su nuevo mejor amigo: `GDB`. GDB (GNU Debugger) es un debugger que se utiliza desde la consola de comandos. Puede parecer un poco feo y complicado al comienzo, pero al final sólo resulta ser feo, y es infinitamente útil a la hora de encontrar problemas en nuestro código, más aún en un lenguaje como assembler, que no se caracteriza por ser fácil de leer. Cuanto antes se acostumbren a usarlo, mejor la van a pasar en esta materia, así que veamos las cuestiones básicas.
+Si se saltearon la sección de debugging de la guía de C (hacia el final de la guía avanzada), vuelvan acá después de haberla leído. Ahora sí, reconozcan a su nuevo mejor amigo: `GDB`. GDB (GNU Debugger) es un debugger que se utiliza desde la consola de comandos. Puede parecer un poco feo y complicado al comienzo, pero al final sólo resulta ser feo, y es invaluable a la hora de encontrar problemas en nuestro código, más aún en un lenguaje como assembler, que no se caracteriza por ser fácil de leer. Cuanto antes se acostumbren a usarlo, mejor la van a pasar en esta materia, así que repasemos las cuestiones básicas, ahora con código de assembler.
 
 Vamos a explorarlo con la función que implementamos recién, les recomiendo que vayan reproduciendo los pasos a medida que leen, así ya se van interiorizando.
 Para ejecutar un programa con GDB basta con escribir 'gdb' antes del nombre del ejecutable en la consola:
@@ -346,7 +346,7 @@ Algunos ejemplos tomados de [Visual GDB](https://visualgdb.com/gdbreference/comm
 
 ![GDB - 8](../../img/GDB%20-%208.png)
 
-Como se imaginarán, esto es solo la punta del iceberg de lo que GDB es capaz de hacer. Les recomiendo revisar la [documentación](https://www.sourceware.org/gdb/documentation/) para profundizar en su uso.
+Como se imaginarán, esto es solo la punta del iceberg de lo que GDB es capaz de hacer. Les recomiendo revisar la [documentación](https://www.sourceware.org/gdb/documentation/) para profundizar en su uso, y recuerden que hay dos apuntes muy útiles en la sección de recursos del campus.
 
 
 # Ejercicios

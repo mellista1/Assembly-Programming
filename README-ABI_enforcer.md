@@ -1,9 +1,9 @@
 # Guía de uso del ABI enforcer
 
-Para los ejercicos de esta guía, que pueden encontrar en las subcarpetas, además de tests funcionales les proveemos una herramienta de validación de cumplimiento de ABI que se utilizará para evaluar sus entregas en las instancias de evaluación.
+Para los ejercicos de esta guía, que pueden encontrar en las subcarpetas dentro de `./src`, además de tests funcionales les proveemos una herramienta de validación de cumplimiento de ABI que se utilizará para evaluar sus entregas en las instancias de evaluación.
 **No dejen de usar esta herramienta sobre sus soluciones de ASM!**
 
-Vayan a leer los ejercicios y, antes de ponerse a programar, vuelvan aquí a revisar las advertencias de uso del tester de ABI.
+Vayan a leer los ejercicios y, antes de ponerse a programar, vuelvan acá a revisar las advertencias de uso del tester de ABI.
 
 La herramienta consta de varios módulos que realizan distintos chequeos o instrumentan el programa de otros modos.
 A continuación se comenta su funcionamiento y se hacen algunas advertencias a tener en cuenta al momento de autoevaluar sus soluciones.

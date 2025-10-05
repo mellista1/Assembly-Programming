@@ -85,9 +85,43 @@ Tenemos muchas instrucciones disponibles, cuya sintaxis suele seguir una lógica
     - Registro-Inmediato:
       - `sub rsp, 8`
 
+
+# Documentación de instrucciones
+
+Tenemos muchas instrucciones disponibles, no vamos a usar todas, pero sí tenemos que ser capaces de navegar la documentación para encontrar la que necesitamos. El volumen 2 del manual de Intel es la referencia del conjunto de instrucciones (disponible en el campus, o en google...), que también pueden consultar en [felixcloutier](https://www.felixcloutier.com/x86/).
+
+¿Con qué se come? Supongamos que tenemos que buscar una instrucción para sumar dos enteros de 64 bits que están en los registros RDI y RAX. Como no conocemos esta instrucción, empezamos consultando el indice del manual donde se encuentran las operaciones con una breve descripción. Vemos que está la operación `ADD`, en la sección 3-32.
+
+![Add en el indice del manual](../../img/2InstructionSetReferenceAdd.png)
+
+Vamos a la sección 3-32. Nos encontramos con una tabla y varias secciones:
+
+- Description: Una descripción detallada en palabras del comportamiento de la instrucción
+
+- Operation: Presenta un pseudocódigo que describe el compotamiento de la función
+
+![Add descripcion](../../img/2InstructionSetReferenceAddDescription.png)
+
+Parece que es lo que buscamos, pero tenemos que asegurarnos de que ambos registros puedan ser de 64 bits. Veamos la tabla:
+
+![Add tabla](../../img/2InstructionSetReferenceTablaAdd.png)
+
+¿Qué columnas nos interesan?
+- Instruction: describe la sintaxis de uso de la instrucción. Donde vemos `rX`, significa que el operando puede ser un registro tamaño X bits, `immX` refiere a un valor inmediato de X bits y `mX` refiere a que puede ser una dirección de memoria (desreferenciada con corchetes) de tamaño X bits. Más información en la sección 3.1.1.3 "Instruction Column in the Opcode Summary Table".
+- 64-bit Mode: refiere a si es una instrucción válida en una arquitectura de 64 bits, nos interesa que diga "Valid".
+- Description: una descripción de la instrucción, específica a su uso con esa combinación de operandos.
+
+Siguiendo con el ejemplo, nos interesa sumar el valor de dos registros de 64 bits, es decir, tendríamos dos r64 (o un r64 y un r/m64). Volvamos a la tabla para ver si ADD permite esta operación.
+
+Encontramos que las únicas combinaciones de operandos que incluyen registros de 64 bits (r64 y r/m64) son estas dos:
+
+![Add resaltado en tabla](../../img/2InstructionSetReferenceTablaAddResaltado64bits.png)
+
+Efectivamente, la instrucción nos sirve. La razón por la que aparece en dos filas distintas es porque si dijese `ADD r/m64, r/m64` estaría contemplando el caso en que ambos operandos son direcciones de memoria a la vez, pero esto en general no está permitido.
+
 ## Pseudo-instrucciones
 
-Algunos ejemplos de como usar pseudo-instrucciones para definir datos:
+Cuando queremos definir datos a mano desde assembler, vamos a necesitar usar pseudo-instrucciones, acá van algunas:
 
 ```asm
 db 0x55                                 ; define sólo un byte, 0x55
@@ -158,9 +192,12 @@ clean:
 
 
 
+
+
+
+
     
-    
-    
+
     
     
  
