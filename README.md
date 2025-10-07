@@ -11,7 +11,6 @@ Este repositorio consiste en una colección de ejercicios que parten de la intro
 
 2 - [ABI (Aplication Binary Interface)]()
     La ABI establece el pasaje de argumentos desde una función llamante a una función llamada, y como se retornan los resultados. En este directorio pondremos en práctica en qué consiste esto, y tendremos una comprensión profunda de la comunicación entre funciones. 
-
     Además tendremos el primer encuentro con GDB. Este debugger se convertirá en nuestro mejor amigo que nos acompañará durante el resto de nuestro viaje. 
 
 3 - [Alineación y Estructuras]()
